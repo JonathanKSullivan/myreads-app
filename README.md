@@ -8,10 +8,7 @@ MyReads is a React-based bookshelf application that allows users to categorize a
 - **Move Books Between Shelves**: Easily move books from one shelf to another with a simple selection control.
 - **Search for Books**: Find books by searching and add them directly to your library.
 - **Book Detail Page**: Click on a book to view more detailed information, including a summary, author details, and publication date.
-- **Rate a Book**: Provide ratings for books you have read, helping you keep track of your favorites.
-- **Bulk Move Books**: Select multiple books and move them to a different shelf in one action, streamlining your library management.
 - **Drag-and-Drop Functionality**: Move books between shelves by dragging and dropping them, providing a more intuitive user experience.
-- **Sign-Up and Log-In**: Create an account and log in to save your bookshelves to your account, allowing access from any device.
 - **Persistent State**: Book selections persist even after page reloads, ensuring your library is always up-to-date.
 
 ## Tech Stack
@@ -19,23 +16,25 @@ MyReads is a React-based bookshelf application that allows users to categorize a
 - **React**: Frontend JavaScript library for building user interfaces.
 - **React Router**: Handles navigation between the main page, search page, and book detail page.
 - **Books API**: Backend service for fetching and managing book data.
-- **Firebase/Auth0**: (Optional) For implementing sign-up and log-in functionality.
 
 ## Installation
 
 To run the MyReads app locally on your machine, follow these steps:
 
 1. **Clone the repository**:
+
    ```bash
    git clone https://github.com/JonathanKSullivan/myreads-app.git
    ```
 
 2. **Navigate to the project directory**:
+
    ```bash
    cd myreads-app
    ```
 
 3. **Install dependencies**:
+
    ```bash
    npm install
    ```
@@ -51,11 +50,9 @@ To run the MyReads app locally on your machine, follow these steps:
 - **Main Page**:
   - View your books organized into "Currently Reading," "Want to Read," and "Read" shelves.
   - Use the control on each book to move it between different shelves.
-  - Rate books that you've read and view your ratings on the book detail page.
-  - Bulk move multiple books between shelves using the bulk action feature.
   - Drag and drop books between shelves for a more interactive experience.
-  
 - **Search Page**:
+
   - Use the search input to find new books by title or author.
   - Add books to your desired shelf directly from the search results.
   - Navigate back to the main page to see your updated library.
@@ -63,18 +60,14 @@ To run the MyReads app locally on your machine, follow these steps:
 - **Book Detail Page**:
   - Click on a book cover or title to navigate to the Book Detail Page.
   - View more detailed information about the book, including its summary, author details, and publication date.
-  - See the ratings you've provided for the book.
   - Navigate back to the main page or search page to continue managing your library.
-
-- **Sign-Up and Log-In**:
-  - Create an account and log in to save your book collections to your personal account.
-  - Access your bookshelves from any device by logging in.
 
 ## Screenshots
 
-![Main Page](path-to-main-page-screenshot.png)
-![Search Page](path-to-search-page-screenshot.png)
-![Book Detail Page](path-to-book-detail-page-screenshot.png)
+![Main Page](main_page_screenshot.png)
+![Search Page](search_page_screenshot.png)
+![Library Page](library_page_screenshot.png)
+![Book Detail Page](book_detail_page_screenshot.png)
 
 ## License
 
