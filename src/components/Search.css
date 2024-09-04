@@ -1,0 +1,41 @@
+/* Search.css */
+
+/* Container for the main content */
+.container {
+  margin-top: 3rem;
+}
+
+/* Title of the page */
+.title {
+  margin-top: 6rem;
+  text-align: center;
+}
+
+/* Subtitle of the page */
+.subtitle {
+  margin-top: 3rem;
+  margin-bottom: 6rem;
+  color: #7a7a7a; /* equivalent to has-text-grey */
+}
+
+/* Search input and button layout */
+.field {
+  justify-content: center;
+}
+
+/* Spacing for the horizontal rule */
+hr {
+  margin-bottom: 4rem;
+}
+
+/* Container for the content area */
+.content {
+  text-align: center;
+}
+
+/* Mobile specific alignment for title */
+@media screen and (max-width: 768px) {
+  .title {
+    text-align: center;
+  }
+}

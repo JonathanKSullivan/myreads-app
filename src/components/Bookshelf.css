@@ -1,0 +1,26 @@
+/* Bookshelf.css */
+
+/* Bookshelf container styling */
+.bookshelf {
+  padding: 1rem;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+/* Styling for the bookshelf when a book is being dragged over */
+.bookshelf-over {
+  background-color: #f0f0f0;
+}
+
+/* Flexbox layout for the books */
+.books-container {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 16px;
+}
+
+/* Individual book container in the shelf */
+.book-item {
+  flex: 0 0 auto;
+}

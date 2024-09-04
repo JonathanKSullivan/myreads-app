@@ -1,0 +1,79 @@
+/* BookDetail.css */
+
+/* General container styles */
+.book-detail {
+  margin-top: 2rem;
+}
+
+/* Book title and author */
+.book-title {
+  font-size: 2rem;
+}
+
+.book-author {
+  font-size: 1.25rem;
+}
+
+/* Image figure styling */
+.book-cover {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Flex alignment for media elements */
+.media {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.media-left {
+  margin-right: 0.5rem;
+}
+
+/* Buttons for preview and purchase */
+.buttons {
+  margin-top: 1rem;
+}
+
+.buttons a {
+  margin-right: 0.5rem;
+}
+
+/* Loader styles */
+.loader {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+/* Rating stars container */
+.rating {
+  display: flex;
+  align-items: center;
+}
+
+.rating span {
+  margin-left: 0.5rem;
+}
+
+/* Maturity rating icons */
+.mr-2 {
+  margin-right: 0.5rem;
+}
+
+.is-flex {
+  display: flex;
+}
+
+.is-align-items-center {
+  align-items: center;
+}
+
+/* Spacing for book detail columns */
+.mt-4 {
+  margin-top: 1rem;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
+}

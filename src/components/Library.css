@@ -1,0 +1,22 @@
+/* Library.css */
+
+/* Container margin */
+.container {
+  margin-top: 5rem;
+}
+
+/* Title styling */
+.title {
+  margin-top: 6rem;
+  text-align: center;
+}
+
+/* Horizontal rule margin */
+hr {
+  margin-bottom: 4rem;
+}
+
+/* Mobile text centering */
+.has-text-centered-mobile {
+  text-align: center;
+}

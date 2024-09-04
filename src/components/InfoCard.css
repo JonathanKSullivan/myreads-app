@@ -1,0 +1,14 @@
+/* InfoCard.css */
+
+/* Card styling */
+.card {
+  box-shadow: var(--mantine-shadow-sm);
+  padding: var(--mantine-spacing-lg);
+  border-radius: var(--mantine-radius-md);
+  border: 1px solid var(--mantine-color-border);
+}
+
+/* Card title */
+.card-title {
+  margin-top: var(--mantine-spacing-md);
+}
