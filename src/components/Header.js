@@ -38,13 +38,6 @@ export function Header() {
               </Text>
             </Link>
           </div>
-          <div className="navbar-item">
-            <Link to="/library" className="navbar-item">
-              <Text size="md" color="white" weight={500}>
-                Library
-              </Text>
-            </Link>
-          </div>
         </div>
       </div>
     </nav>

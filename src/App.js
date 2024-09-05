@@ -3,73 +3,78 @@ import { Routes, Route } from 'react-router-dom';
 import BookDetail from './components/BookDetail';
 import Library from './components/Library';
 import Search from './components/Search';
-import HomePage from './components/HomePage';
+import { getAll, update } from './BooksAPI';
 
 function App() {
-  const initialUserState = {
-    name: 'John Doe',
-    email: 'johndoe@example.com',
-    books: [],
-  };
+  const [books, setBooks] = useState([]);
 
-  const [user, setUser] = useState(() => {
-    const savedUser = localStorage.getItem('user');
-    let initialUser;
+  // Function to fetch books and set state
+  const fetchBooks = async () => {
     try {
-      initialUser = savedUser ? JSON.parse(savedUser) : initialUserState;
+      const bookDetails = await getAll();
+      console.log('Fetched books:', bookDetails);
+      setBooks(bookDetails);
     } catch (error) {
-      console.error('Error parsing localStorage data:', error);
-      initialUser = initialUserState;
+      console.error('Failed to fetch books:', error);
     }
-    return initialUser;
-  });
-
-  const changeBookStatus = (selectedBook, newStatus) => {
-    const bookExists = user.books.some((book) => book.id === selectedBook.id);
-
-    let updatedBooks;
-    if (bookExists) {
-      updatedBooks = user.books.map((book) =>
-        book.id === selectedBook.id ? { ...book, status: newStatus } : book
-      );
-    } else {
-      updatedBooks = [
-        ...user.books,
-        { id: selectedBook.id, status: newStatus },
-      ];
-    }
-
-    const updatedUser = { ...user, books: updatedBooks };
-    setUser(updatedUser);
-    localStorage.setItem('user', JSON.stringify(updatedUser));
   };
 
-  const removeBook = (bookId) => {
-    const updatedBooks = user.books.filter((book) => book.id !== bookId);
-    const updatedUser = { ...user, books: updatedBooks };
-    setUser(updatedUser);
-    localStorage.setItem('user', JSON.stringify(updatedUser));
+  // Fetch books on initial load
+  useEffect(() => {
+    fetchBooks();
+  }, []);
+
+  // Function to change book status and refresh the list
+  const changeBookStatus = async (selectedBook, newStatus) => {
+    try {
+      await update(selectedBook, newStatus);
+      // Refetch books after update
+      fetchBooks();
+    } catch (error) {
+      console.error('Failed to update book status:', error);
+    }
+  };
+
+  // Function to remove a book and refresh the list
+  const removeBook = async (selectedBook) => {
+    try {
+      await update(selectedBook, 'none'); // Move the book to 'none' category (remove)
+      // Refetch books after removal
+      fetchBooks();
+    } catch (error) {
+      console.error('Failed to delete book status:', error);
+    }
   };
 
   return (
     <div>
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route
+          path="/"
+          element={
+            <Library
+              changeBookStatus={changeBookStatus}
+              removeBook={removeBook}
+              books={books}
+              setBooks={setBooks}
+            />
+          }
+        />
         <Route
           path="/library"
           element={
             <Library
-              user={user}
-              setUser={setUser}
               changeBookStatus={changeBookStatus}
               removeBook={removeBook}
+              books={books}
+              setBooks={setBooks}
             />
           }
         />
         <Route path="/book/:id" element={<BookDetail />} />
         <Route
           path="/search"
-          element={<Search user={user} changeBookStatus={changeBookStatus} />}
+          element={<Search changeBookStatus={changeBookStatus} />}
         />
       </Routes>
     </div>

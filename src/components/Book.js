@@ -1,27 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaBookOpen } from 'react-icons/fa';
 import { Button, Group, Badge, Text } from '@mantine/core';
 import 'bulma/css/bulma.min.css';
+import { truncateText } from '../utils/text';
+import { get } from '../BooksAPI'; // Assuming get is used to fetch book details, including shelf info
 
-const Book = ({ book, changeBookStatus, user = { books: [] } }) => {
+const Book = ({ book, changeBookStatus }) => {
   const [isAdding, setIsAdding] = useState(false);
+  const [currentStatus, setCurrentStatus] = useState(null); // Add state for book's status
 
-  // Check if the book is already in the user's library
-  const userBook = user.books.find((userBook) => userBook.id === book.id);
-  const currentStatus = userBook ? userBook.status : null;
+  // Function to format status into user-friendly format
+  const formatStatus = (status) => {
+    if (!status || status === 'none') return null;
+    // Convert camelCase to Title Case (e.g., "currentlyReading" to "Currently Reading")
+    return status
+      .replace(/([a-z])([A-Z])/g, '$1 $2') // Add space before capital letters
+      .replace(/^./, (str) => str.toUpperCase()); // Capitalize the first letter
+  };
+
+  // Fetch the book's shelf value when the component mounts
+  useEffect(() => {
+    const fetchBookStatus = async () => {
+      try {
+        const fetchedBook = await get(book.id); // Fetch the book's data
+        setCurrentStatus(fetchedBook.shelf); // Set the shelf (status) from the fetched data
+      } catch (error) {
+        console.error('Failed to fetch book status:', error);
+      }
+    };
+
+    fetchBookStatus(); // Call the function to fetch status
+  }, [book.id]); // Run effect when the book id changes
 
   const handleAddToLibrary = (status) => {
     changeBookStatus(book, status);
+    setCurrentStatus(status); // Update the current status in the state
     setIsAdding(false);
   };
 
-  // Truncate description with a line clamp
-  const truncateText = (text, maxLength = 100) => {
-    if (!text) return '';
-    if (text.length <= maxLength) return text;
-    return text.substring(0, maxLength) + '...';
-  };
+  const formattedStatus = formatStatus(currentStatus);
 
   return (
     <div
@@ -115,7 +133,7 @@ const Book = ({ book, changeBookStatus, user = { books: [] } }) => {
               </Text>
             )}
           </div>
-          {currentStatus && (
+          {formattedStatus && (
             <Badge
               color="green"
               mt="xs"
@@ -129,7 +147,7 @@ const Book = ({ book, changeBookStatus, user = { books: [] } }) => {
                 marginTop: '10px',
               }}
             >
-              {currentStatus}
+              {formattedStatus}
             </Badge>
           )}
         </div>
@@ -152,7 +170,7 @@ const Book = ({ book, changeBookStatus, user = { books: [] } }) => {
                 fullWidth
                 variant="light"
                 size="xs"
-                onClick={() => handleAddToLibrary('Want to Read')}
+                onClick={() => handleAddToLibrary('wantToRead')}
               >
                 Want to Read
               </Button>
@@ -160,7 +178,7 @@ const Book = ({ book, changeBookStatus, user = { books: [] } }) => {
                 fullWidth
                 variant="light"
                 size="xs"
-                onClick={() => handleAddToLibrary('Currently Reading')}
+                onClick={() => handleAddToLibrary('currentlyReading')}
               >
                 Currently Reading
               </Button>
@@ -168,7 +186,7 @@ const Book = ({ book, changeBookStatus, user = { books: [] } }) => {
                 fullWidth
                 variant="light"
                 size="xs"
-                onClick={() => handleAddToLibrary('Read')}
+                onClick={() => handleAddToLibrary('read')}
               >
                 Read
               </Button>
@@ -185,7 +203,7 @@ const Book = ({ book, changeBookStatus, user = { books: [] } }) => {
             </Group>
           ) : (
             <Button variant="light" size="xs" onClick={() => setIsAdding(true)}>
-              {currentStatus ? 'Update Status' : 'Add to Library'}
+              {formattedStatus ? 'Update Status' : 'Add to Library'}
             </Button>
           )}
         </Group>

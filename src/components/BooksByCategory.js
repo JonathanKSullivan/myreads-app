@@ -2,7 +2,7 @@ import { Box, Title, Paper, Text } from '@mantine/core';
 import Book from './Book';
 import './BooksByCategory.css';
 
-const BooksByCategory = ({ booksByCategory, changeBookStatus, user }) => {
+const BooksByCategory = ({ booksByCategory, changeBookStatus }) => {
   return (
     <>
       {Object.keys(booksByCategory).length === 0 && (
@@ -19,11 +19,7 @@ const BooksByCategory = ({ booksByCategory, changeBookStatus, user }) => {
           <Box className="books-container">
             {booksByCategory[category].map((book) => (
               <Box key={book.id} className="book-item">
-                <Book
-                  book={book}
-                  changeBookStatus={changeBookStatus}
-                  user={user}
-                />
+                <Book book={book} changeBookStatus={changeBookStatus} />
               </Box>
             ))}
           </Box>

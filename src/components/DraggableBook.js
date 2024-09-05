@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { FaBookOpen, FaTrashAlt } from 'react-icons/fa';
 import 'bulma/css/bulma.min.css';
 import { useDrag } from 'react-dnd';
+import { truncateText } from '../utils/text';
 
 const DraggableBook = ({ book, removeBook }) => {
   const [{ isDragging }, drag] = useDrag({
@@ -18,7 +19,6 @@ const DraggableBook = ({ book, removeBook }) => {
       className="card is-hoverable"
       ref={drag}
       style={{
-        height: '350px',
         width: '100%',
         display: 'flex',
         flexDirection: 'column',
@@ -47,13 +47,20 @@ const DraggableBook = ({ book, removeBook }) => {
             <p
               className="title is-6 has-text-weight-semibold"
               style={{
-                height: '40px',
+                height: 'auto',
                 overflow: 'hidden',
-                whiteSpace: 'nowrap',
+                display: '-webkit-box',
+                WebkitLineClamp: 2,
+                WebkitBoxOrient: 'vertical',
                 textOverflow: 'ellipsis',
+                textAlign: 'left', // Align text to the left
+                margin: 0,
+                padding: 0,
               }}
+              title={book.title}
             >
-              {book.title}
+              {truncateText(book.title, 50)}{' '}
+              {/* Truncate title to a max length */}
             </p>
             <p
               className="subtitle is-7 has-text-grey-dark"
@@ -62,9 +69,12 @@ const DraggableBook = ({ book, removeBook }) => {
                 overflow: 'hidden',
                 whiteSpace: 'nowrap',
                 textOverflow: 'ellipsis',
+                textAlign: 'left', // Align text to the left
+                margin: 0, // Remove margin
+                padding: 0, // Remove padding
               }}
             >
-              {book.authors.join(', ')}
+              {book.authors?.join(', ') || 'Unknown Author'}
             </p>
           </div>
         </div>
@@ -82,7 +92,7 @@ const DraggableBook = ({ book, removeBook }) => {
         </Link>
         <button
           className="button is-danger is-fullwidth is-small mt-2"
-          onClick={() => removeBook(book.id)}
+          onClick={() => removeBook(book)}
           style={{
             display: 'flex',
             alignItems: 'center',

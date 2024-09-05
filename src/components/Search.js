@@ -6,7 +6,7 @@ import { search } from '../BooksAPI';
 import 'bulma/css/bulma.min.css';
 import './Search.css';
 
-const Search = ({ user, changeBookStatus }) => {
+const Search = ({ changeBookStatus }) => {
   const [query, setQuery] = useState('');
   const [booksByCategory, setBooksByCategory] = useState({});
 
@@ -66,7 +66,6 @@ const Search = ({ user, changeBookStatus }) => {
           <BooksByCategory
             booksByCategory={booksByCategory}
             changeBookStatus={changeBookStatus}
-            user={user}
           />
         </div>
       </div>
